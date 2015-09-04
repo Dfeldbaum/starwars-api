@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script type="text/template" id='character-template'>
+      <li> <strong>Name:</strong> <%= name %>; <strong>Planet:</strong> <%= planet %></li>
+    </script>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.2/backbone-min.js'></script>
+    <script src='/javascripts/app.js'></script>
   </head>
   <body>
     <h1>Star Wars API</h1>
     <hr>
 
     {{{body}}}
-    
+
   </body>
 </html>
