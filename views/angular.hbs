@@ -1,0 +1,23 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+<script type='text/javascript' src='/javascripts/angular-app.js'></script>
+
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+<section ng-app='swapp'>
+
+  <article ng-controller='charCtrl'>
+
+    <h1>Create Character</h1>
+    <form ng-submit='create(name, planet)'>
+      <input type="text" name="name" ng-model='name' placeholder='Character name'>
+      <input type="text" name="planet" ng-model='planet' placeholder='Home planet'>
+      <input type="submit" value="Create!">
+    </form>
+
+    <ul>
+      <li ng-repeat='char in characters'>{[{char.name}]} hails from {[{char.planet}]} <button ng-click='delete(char)'>Delete</button></li>
+    </ul>
+  </article>
+
+</section>

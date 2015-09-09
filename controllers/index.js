@@ -6,4 +6,9 @@ controller.get('/', function(req, res, next) {
   res.render('index', { title: 'Characters' });
 });
 
+/* GET angular page */
+controller.get('/angular', function(req, res, next) {
+  res.render('angular', { title: 'Angular Characters' });
+});
+
 module.exports = controller;
