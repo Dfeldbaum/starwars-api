@@ -14,6 +14,7 @@ require('./models/db');
 // controllers
 var routes = require('./controllers/index');
 var characters = require('./controllers/characters');
+var accounts = require('./controllers/account');
 
 var app = express();
 
@@ -29,16 +30,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+// set up express sessions
 app.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+  secret: 'tom loves tommy',
+  resave: false,
+  saveUnitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+// end session setup
 
+var Account = require('./models/Account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+
+// controllers!
 app.use('/', routes);
 app.use('/characters', characters);
+app.use('/account', accounts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

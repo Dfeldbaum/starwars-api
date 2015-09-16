@@ -10,6 +10,13 @@
   </head>
   <body>
     <h1>Star Wars API</h1>
+
+    {{#if user}}
+      Welcome, {{user.username}}!
+    {{else}}
+      Hey! You should <a href='/account/login'>login</a>!
+    {{/if}}
+
     <hr>
 
     {{{body}}}

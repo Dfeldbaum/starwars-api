@@ -1,43 +1,60 @@
+// account controller
 var express = require('express');
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var Account = require('../models/Account');
-var router = express.Router();
+var controller = express.Router();
 
-router.get('/', function (req, res) {
-    res.render('index', { user : req.user });
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+controller.get('/', function(req, res) {
+  res.render('account', { user: req.user });
 });
 
-router.get('/register', function(req, res) {
-    res.render('register', { });
+controller.get('/register', function(req, res) {
+  res.render('register', {});
 });
 
-router.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-        if (err) {
-            return res.render('register', { account : account });
-        }
-
-        passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
-        });
-    });
+controller.post('/register', function(req, res) {
+  Account.register(new Account({
+    username: req.body.username
+  }),
+  req.body.password, function(error, account) {
+      if (error) {
+        return res.render('register', { account: account });
+      }
+      passport.authenticate('local')(req, res, function() {
+        res.redirect('/');
+      });
+  })
 });
 
-router.get('/login', function(req, res) {
-    res.render('login', { user : req.user });
+controller.get('/login', function(req, res) {
+  res.render('login', { user: req.user });
 });
 
-router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
+// controller.post('/login',
+//   passport.authenticate('local'), function(req, res) {
+//   res.redirect('/');
+// });
+
+controller.post('/login',
+  passport.authenticate('local', { failureRedirect: '/account' }),
+  function(req, res) {
+    res.redirect('/account');
+  }
+);
+
+
+controller.get('/logout', function() {
+  req.logout();
+  res.redirect('/');
 });
 
-router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
+controller.get('/protectedresourced', function(req, res) {
+  res.status(200).send('the secret to every success is to never stop');
 });
 
-router.get('/ping', function(req, res){
-    res.status(200).send("pong!");
-});
-
-module.exports = router;
+module.exports = controller;
