@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "node_modules/.bin/jasmine-node spec"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -17,7 +18,14 @@
   },
   "devDependencies": {
     "angular": "^1.4.5",
+    "express-session": "^1.11.3",
+    "frisby": "^0.8.5",
+    "http": "0.0.0",
+    "jasmine-node": "^1.14.5",
     "jquery": "^2.1.4",
-    "mongoose": "^4.1.5"
+    "mongoose": "^4.1.5",
+    "passport": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^2.0.0"
   }
 }
